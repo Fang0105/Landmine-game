@@ -6,10 +6,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.*;
 import javax.swing.*;
-
-
 import java.util.*;
-
+import bombs.clock.*;
 
 class Location{
 	int x;
@@ -21,6 +19,7 @@ class Location{
 		this.x = x;
 		this.y = y;
 	}
+	
 }
 
 public class Bombs {
@@ -47,6 +46,7 @@ public class Bombs {
 	}
 	
 	public void init() {
+		clock.start = clock.getTime();
 		flagNumber = 0;
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {
@@ -104,10 +104,13 @@ public class Bombs {
 								}
 							});	
 							if(flagNumber==bombsNumber) {
+								clock.end = clock.getTime();
+								System.out.println(clock.getDistance());
 								JDialog jd = new JDialog(mapFrame);
 								jd.setLayout(new FlowLayout());
-								jd.setBounds((screen.width-mapFrame.getSize().width)/2,(screen.height-mapFrame.getSize().height)/2,200,100);
-								JLabel againLabel = new JLabel("恭喜你贏了^_^   再來一局?");
+								jd.setBounds((screen.width-mapFrame.getSize().width)/2,(screen.height-mapFrame.getSize().height)/2,200,130);
+								JLabel againLabel = new JLabel("恭喜你贏了^_^   再來一局?");							
+								JLabel timeLabel = new JLabel(String.valueOf(clock.getDistance()));
 								JButton yesButton = new JButton("要");
 								JButton noButton = new JButton("不要");
 								yesButton.addActionListener(new ActionListener() {
@@ -133,6 +136,7 @@ public class Bombs {
 									}
 								});
 								jd.add(againLabel);
+								jd.add(timeLabel);
 								jd.add(yesButton);
 								jd.add(noButton);
 								jd.setVisible(true);
@@ -204,6 +208,8 @@ public class Bombs {
 					container[x][y].add(area[x][y]);
 				}
 			}else {
+				clock.end = clock.getTime();
+				System.out.println(clock.getDistance());
 				container[x][y].remove(area[x][y]);
 				bombIcon.setImage(bombIcon.getImage().getScaledInstance(area[x][y].getWidth(), area[x][y].getHeight(), Image.SCALE_DEFAULT));
 				area[x][y] = new JLabel(bombIcon);
@@ -213,8 +219,9 @@ public class Bombs {
 				
 				JDialog jd = new JDialog(mapFrame);
 				jd.setLayout(new FlowLayout());
-				jd.setBounds((screen.width-mapFrame.getSize().width)/2,(screen.height-mapFrame.getSize().height)/2,200,100);
+				jd.setBounds((screen.width-mapFrame.getSize().width)/2,(screen.height-mapFrame.getSize().height)/2,200,130);
 				JLabel againLabel = new JLabel("輸了QQ  再來一局?");
+				JLabel timeLabel = new JLabel(String.valueOf(clock.getDistance()));;
 				JButton yesButton = new JButton("要");
 				JButton noButton = new JButton("不要");
 				yesButton.addActionListener(new ActionListener() {
@@ -240,6 +247,7 @@ public class Bombs {
 					}
 				});
 				jd.add(againLabel);
+				jd.add(timeLabel);
 				jd.add(yesButton);
 				jd.add(noButton);
 				jd.setVisible(true);
