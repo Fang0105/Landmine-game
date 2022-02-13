@@ -105,7 +105,6 @@ public class Bombs {
 							});	
 							if(flagNumber==bombsNumber) {
 								clock.end = clock.getTime();
-								System.out.println(clock.getDistance());
 								JDialog jd = new JDialog(mapFrame);
 								jd.setLayout(new FlowLayout());
 								jd.setBounds((screen.width-mapFrame.getSize().width)/2,(screen.height-mapFrame.getSize().height)/2,200,130);
@@ -209,7 +208,6 @@ public class Bombs {
 				}
 			}else {
 				clock.end = clock.getTime();
-				System.out.println(clock.getDistance());
 				container[x][y].remove(area[x][y]);
 				bombIcon.setImage(bombIcon.getImage().getScaledInstance(area[x][y].getWidth(), area[x][y].getHeight(), Image.SCALE_DEFAULT));
 				area[x][y] = new JLabel(bombIcon);

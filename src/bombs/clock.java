@@ -10,7 +10,6 @@ public class clock {
 	public static String getDistance() {
 		String timeDisplay = "¹CÀ¸®É¶¡ : ";
 		String time = String.valueOf(Duration.between(start, end));
-		System.out.println(time);
 		String minute="";
 		String bigSecond = (String)time.subSequence(time.indexOf("M")+1, time.indexOf("."));
 		try{
